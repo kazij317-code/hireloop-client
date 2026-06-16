@@ -22,6 +22,8 @@ export default function JobFilters({
         <div className="md:col-span-5">
           <TextField 
             value={searchQuery} 
+            // onChange={(e) => setSearchQuery(e.target.value)}
+            // (11) then (start: 58_9) go to components/jobs/JobCard.jsx
             onChange={(value) => setSearchQuery(value)}
             className="w-full"
           >
