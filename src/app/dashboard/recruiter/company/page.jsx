@@ -1572,6 +1572,31 @@
 // // (6)en 
 // // ---------------------End:58_4-(1) to () --------------------------------
 // -----------------------------Start: 58_5---------------------------------------
+// import React from 'react';
+// import CompanyProfile from './CompanyProfile';
+// import { getUserSession } from '@/lib/core/session';
+// import { getRecruiterCompany } from '@/lib/api/companies';
+
+// const CompanyPage = async () => {
+
+//     const user = await getUserSession();
+
+//     // console.log("User session in CompanyPage:", user);
+//     // (6)
+//     const company = await getRecruiterCompany(user?.id);
+
+//     return (
+//         <div>
+//             {/* <CompanyProfile recruiter={user}></CompanyProfile> */}
+//             {/* (7) then go to CompanyProfile.jsx*/}
+//             <CompanyProfile recruiter={user} recruiterCompany={company}></CompanyProfile>
+//         </div>
+//     );
+// };
+
+// export default CompanyPage;
+
+// ---------------------End:58_5-(1) to () --------------------------------
 import React from 'react';
 import CompanyProfile from './CompanyProfile';
 import { getUserSession } from '@/lib/core/session';
@@ -1580,20 +1605,13 @@ import { getRecruiterCompany } from '@/lib/api/companies';
 const CompanyPage = async () => {
 
     const user = await getUserSession();
-
-    // console.log("User session in CompanyPage:", user);
-    // (6)
     const company = await getRecruiterCompany(user?.id);
-
+    console.log('company before create', company)
     return (
         <div>
-            {/* <CompanyProfile recruiter={user}></CompanyProfile> */}
-            {/* (7) then go to CompanyProfile.jsx*/}
             <CompanyProfile recruiter={user} recruiterCompany={company}></CompanyProfile>
         </div>
     );
 };
 
 export default CompanyPage;
-
-// ---------------------End:58_5-(1) to () --------------------------------

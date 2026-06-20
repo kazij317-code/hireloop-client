@@ -1,15 +1,73 @@
-// -----------------------------Start: 58_4---------------------------------------
+// // -----------------------------Start: 58_4---------------------------------------
 
-import { headers } from "next/headers"
-import { auth } from "../auth"
+// import { headers } from "next/headers"
+// import { auth } from "../auth"
 
-// (8)st
+// // (8)st
+// export const getUserSession = async () => {
+//     const session = await auth.api.getSession({
+//         headers: await headers() //some endpoints might require headers
+//     })
+
+//     return session?.user || null;
+// }
+// // (8)en then go to company/page.jsx
+// // ---------------------End:58_4-(1) to () --------------------------------
+// import { redirect } from "next/navigation";
+// import { auth } from "../auth";
+// import { headers } from "next/headers";
+
+// export const getUserSession = async () => {
+//     const session = await auth.api.getSession({
+//         headers: await headers() // some endpoints might require headers
+//     })
+
+//     return session?.user || null;
+// }
+
+// export const requireRole = async(role) =>{
+//     const user = await getUserSession()
+//     if(!user){
+//         redirect('/auth/signin')
+//     }
+//     if(user?.role !== role){
+//         redirect('/unauthorized')
+//     }
+//     return user;
+    
+// }
+
+// -------------------------------
+import { redirect } from "next/navigation";
+import { auth } from "../auth";
+import { headers } from "next/headers";
+
 export const getUserSession = async () => {
     const session = await auth.api.getSession({
-        headers: await headers() //some endpoints might require headers
+        headers: await headers() // some endpoints might require headers
     })
 
+    // console.log('session', session)
     return session?.user || null;
 }
-// (8)en then go to company/page.jsx
-// ---------------------End:58_4-(1) to () --------------------------------
+
+export const getUserToken = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+
+   
+
+    return session?.session?.token || null;
+}
+
+export const requireRole = async (role) => {
+    const user = await getUserSession()
+    if (!user) {
+        redirect('/auth/signin')
+    }
+    if (user?.role !== role) {
+        redirect('/unauthorized')
+    }
+    return user;
+}

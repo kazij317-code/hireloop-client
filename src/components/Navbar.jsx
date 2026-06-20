@@ -1280,207 +1280,412 @@
 //   );
 // }
 // // ---------------------End:58_7-(1) to () --------------------------------
-// -----------------------------Start: 59_6--------------------------------------
+// // -----------------------------Start: 59_6--------------------------------------
+// "use client";
+
+// import { useState } from "react";
+// import Link from "next/link";
+
+// import { useSession, signOut } from "@/lib/auth-client";
+// import { Button } from "@heroui/react";
+
+// export default function Navbar() {
+//   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+//   const { data: session } = useSession();
+
+//   // console.log("Session data in Navbar:", session, "Is pending:", isPending);
+   
+//   const user = session?.user;
+
+// const handleSignOut = async () => {
+//   await signOut();
+// }
+
+
+//   const navLinks = [
+//     { name: "Browse Jobs", href: "/jobs" },
+    
+//     { name: "Companies", href: "/companies" },
+//     // { name: "Pricing", href: "/pricing" },
+//     // (1) then create stipe account and see docs:https://docs.stripe.com/get-started/use-cases> Payments>Build a payments page>Quickstart guides>Create a Stripe-hosted checkout page>Next.js>Preview>.env>copy inside .env and then go to .env file
+//     { name: "Pricing", href: "/plans" },
+//   ];
+
+//   return (
+//     <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0B0B0F]/80 backdrop-blur-xl">
+//       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+
+//         {/* Left Side - Logo */}
+//         <div className="flex items-center">
+//           <Link
+//             href="/"
+//             className="flex items-center gap-2 transition-opacity hover:opacity-90"
+//           >
+//             {/* Logo Icon */}
+//             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-lg shadow-violet-500/20">
+//               <svg
+//                 xmlns="http://www.w3.org/2000/svg"
+//                 viewBox="0 0 24 24"
+//                 fill="currentColor"
+//                 className="h-5 w-5 text-white"
+//               >
+//                 <path d="M8 5v14l11-7z" />
+//               </svg>
+//             </div>
+
+//             {/* Logo Text */}
+
+//             <div className="hidden leading-none sm:block">
+//               <h1 className="text-lg font-bold text-white">
+//                 Hire Loop
+//               </h1>
+//             </div>
+
+
+//           </Link>
+//         </div>
+
+//         {/* Right Side - Desktop Menu */}
+//         <div className="hidden items-center gap-8 md:flex">
+
+//           {/* Nav Links */}
+//           <ul className="flex items-center gap-7">
+//             {navLinks.map((link) => (
+//               <li key={link.name}>
+//                 <Link
+//                   href={link.href}
+//                   className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
+//                 >
+//                   {link.name}
+//                 </Link>
+//               </li>
+//             ))}
+//           </ul>
+
+//           {/* Vertical Divider */}
+//           <div className="h-6 w-px bg-white/10" />
+
+//           {/* Auth Buttons */}
+//           <div className="flex items-center gap-3">
+            
+//             {
+//               user ? 
+//               <>
+//               Hi, {user.name}!
+              
+//               <Button onClick ={handleSignOut} variant="ghost">Sign Out</Button>
+//               </>
+//               :
+//               <Link
+              
+//               href="/auth/signin"
+//               className="text-sm font-semibold text-violet-400 transition-colors hover:text-violet-300"
+//             >
+//               Sign In
+//             </Link>
+//             }
+            
+//             <Link
+            
+//               href="/auth/signup"
+//               className="rounded-xl bg-white px-5 py-2 text-sm font-semibold text-black transition-all duration-200 hover:scale-[1.02] hover:bg-white/90"
+//             >
+//               Get Started
+//             </Link>
+//           </div>
+//         </div>
+
+//         {/* Mobile Menu Button */}
+//         <button
+//           type="button"
+//           aria-label="Toggle Menu"
+//           onClick={() => setIsMenuOpen(!isMenuOpen)}
+//           className="flex items-center justify-center rounded-lg p-2 text-white transition hover:bg-white/10 md:hidden"
+//         >
+//           {isMenuOpen ? (
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               strokeWidth={2}
+//               stroke="currentColor"
+//               className="h-6 w-6"
+//             >
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 d="M6 18L18 6M6 6l12 12"
+//               />
+//             </svg>
+//           ) : (
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               strokeWidth={2}
+//               stroke="currentColor"
+//               className="h-6 w-6"
+//             >
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 d="M4 6h16M4 12h16M4 18h16"
+//               />
+//             </svg>
+//           )}
+//         </button>
+//       </div>
+
+//       {/* Mobile Menu */}
+//       <div
+//         className={`overflow-hidden border-t border-white/10 bg-[#0B0B0F] transition-all duration-300 md:hidden ${isMenuOpen ? "max-h-[400px]" : "max-h-0 border-transparent"
+//           }`}
+//       >
+//         <div className="space-y-1 px-4 py-4">
+
+//           {/* Mobile Links */}
+//           {navLinks.map((link) => (
+//             <Link
+//               key={link.name}
+//               href={link.href}
+//               className="block rounded-lg px-3 py-3 text-sm font-medium text-white/70 transition hover:bg-white/5 hover:text-white"
+//               onClick={() => setIsMenuOpen(false)}
+//             >
+//               {link.name}
+//             </Link>
+//           ))}
+
+//           {/* Divider */}
+//           <div className="my-3 h-px bg-white/10" />
+
+//           {/* Mobile Auth Buttons */}
+//           <div className="flex flex-col gap-3 pt-1">
+//             <Link
+//               href="/signin"
+//               className="rounded-xl border border-violet-500/30 px-4 py-3 text-center text-sm font-semibold text-violet-400 transition hover:bg-violet-500/10"
+//               onClick={() => setIsMenuOpen(false)}
+//             >
+//               Sign In
+//             </Link>
+
+//             <Link
+//               href="/get-started"
+//               className="rounded-xl bg-white px-4 py-3 text-center text-sm font-semibold text-black transition hover:bg-white/90"
+//               onClick={() => setIsMenuOpen(false)}
+//             >
+//               Get Started
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// }
+// // ---------------------End:59_6-(1) to () --------------------------------
+// -----------------------------Start: 60_1--------------------------------------
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
-
-import { useSession, signOut } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
+import { useSession, signOut } from "@/lib/auth-client";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-
   const { data: session } = useSession();
 
-  // console.log("Session data in Navbar:", session, "Is pending:", isPending);
-   
   const user = session?.user;
 
-const handleSignOut = async () => {
-  await signOut();
-}
+  const handleSignOut = async () => {
+    await signOut();
 
+  }
 
   const navLinks = [
-    { name: "Browse Jobs", href: "/jobs" },
-    
-    { name: "Companies", href: "/companies" },
-    // { name: "Pricing", href: "/pricing" },
-    // (1) then create stipe account and see docs:https://docs.stripe.com/get-started/use-cases> Payments>Build a payments page>Quickstart guides>Create a Stripe-hosted checkout page>Next.js>Preview>.env>copy inside .env and then go to .env file
-    { name: "Pricing", href: "/plans" },
+    {
+      label: "Browse Jobs",
+      href: "/jobs",
+    },
+    {
+      label: "Companies",
+      href: "/companies",
+    },
+    {
+      label: "Pricing",
+      href: "/plans",
+    },
   ];
+// (1)st
+const dashboardLinks = {
+  seeker: '/dashboard/seeker',
+  recruiter: '/dashboard/recruiter',
+  admin: '/dashboard/admin'
+}
+
+if (user?.email) {
+  navLinks.push(
+    {
+      label: 'Dashboard',
+      href: dashboardLinks[user?.role || 'seeker']
+    }
+  )
+  // (1)en then create dashboard/seeker/page.jsx
+  }
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0B0B0F]/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0B0B0F]/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* LOGO */}
+        <Link href="/" className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 shadow-lg">
+            <span className="text-xl font-bold text-white">P</span>
+          </div>
 
-        {/* Left Side - Logo */}
-        <div className="flex items-center">
-          <Link
-            href="/"
-            className="flex items-center gap-2 transition-opacity hover:opacity-90"
+          <div className="hidden leading-none sm:block">
+            <h1 className="text-lg font-bold text-white">
+              Hire Loop
+            </h1>
+          </div>
+        </Link>
+
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-4">
+          {/* Desktop Menu */}
+          <div className="hidden items-center gap-6 md:flex">
+            {/* Nav Links */}
+            <ul className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-2">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="rounded-full px-4 py-2 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* Vertical Divider */}
+            <div className="h-6 w-px bg-white/20" />
+
+            {/* Auth Links */}
+            <div className="flex items-center gap-4">
+              {
+                user ?
+                  <>
+                    Hi, {user.name}!
+                    <Button onClick={handleSignOut}
+                      variant="ghost">Sign Out</Button>
+                  </>
+                  :
+                  <Link
+                    href="/auth/signin"
+                    className="text-sm font-medium text-violet-400 transition hover:text-violet-300"
+                  >
+                    Sign In
+                  </Link>}
+
+              
+              <Button
+                as={Link}
+                href="/auth/signup"
+                radius="lg"
+                className="h-11 bg-white px-6 text-sm font-semibold text-black hover:bg-gray-200"
+              >
+                Get Started
+              </Button>
+             
+            </div>
+          </div>
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex items-center justify-center rounded-lg p-2 text-white transition hover:bg-white/10 md:hidden"
+            aria-label="Toggle Menu"
           >
-            {/* Logo Icon */}
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-lg shadow-violet-500/20">
+            {isMenuOpen ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                className="h-5 w-5 text-white"
+                stroke="currentColor"
+                strokeWidth={2}
               >
-                <path d="M8 5v14l11-7z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
-            </div>
-
-            {/* Logo Text */}
-
-            <div className="hidden leading-none sm:block">
-              <h1 className="text-lg font-bold text-white">
-                Hire Loop
-              </h1>
-            </div>
-
-
-          </Link>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
         </div>
+      </div>
 
-        {/* Right Side - Desktop Menu */}
-        <div className="hidden items-center gap-8 md:flex">
+      {/* MOBILE MENU */}
+      {isMenuOpen && (
+        <div className="border-t border-white/10 bg-[#0B0B0F] md:hidden">
+          <div className="space-y-3 px-4 py-6">
+            {/* Nav Links */}
+            <ul className="space-y-2">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="block rounded-xl px-4 py-3 text-base font-medium text-gray-300 transition hover:bg-white/5 hover:text-white"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-          {/* Nav Links */}
-          <ul className="flex items-center gap-7">
-            {navLinks.map((link) => (
-              <li key={link.name}>
+            {/* Divider */}
+            <div className="border-t border-white/10 pt-4">
+              <div className="flex flex-col gap-3">
                 <Link
-                  href={link.href}
-                  className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
+                  href="/login"
+                  className="rounded-xl px-4 py-3 text-base font-medium text-violet-400 transition hover:bg-white/5"
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  {link.name}
+                  Sign In
                 </Link>
-              </li>
-            ))}
-          </ul>
 
-          {/* Vertical Divider */}
-          <div className="h-6 w-px bg-white/10" />
-
-          {/* Auth Buttons */}
-          <div className="flex items-center gap-3">
-            
-            {
-              user ? 
-              <>
-              Hi, {user.name}!
-              
-              <Button onClick ={handleSignOut} variant="ghost">Sign Out</Button>
-              </>
-              :
-              <Link
-              
-              href="/auth/signin"
-              className="text-sm font-semibold text-violet-400 transition-colors hover:text-violet-300"
-            >
-              Sign In
-            </Link>
-            }
-            
-            <Link
-            
-              href="/auth/signup"
-              className="rounded-xl bg-white px-5 py-2 text-sm font-semibold text-black transition-all duration-200 hover:scale-[1.02] hover:bg-white/90"
-            >
-              Get Started
-            </Link>
+                <Button
+                  as={Link}
+                  href="/register"
+                  className="bg-white font-semibold text-black"
+                  radius="lg"
+                >
+                  Get Started
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          aria-label="Toggle Menu"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex items-center justify-center rounded-lg p-2 text-white transition hover:bg-white/10 md:hidden"
-        >
-          {isMenuOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`overflow-hidden border-t border-white/10 bg-[#0B0B0F] transition-all duration-300 md:hidden ${isMenuOpen ? "max-h-[400px]" : "max-h-0 border-transparent"
-          }`}
-      >
-        <div className="space-y-1 px-4 py-4">
-
-          {/* Mobile Links */}
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="block rounded-lg px-3 py-3 text-sm font-medium text-white/70 transition hover:bg-white/5 hover:text-white"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.name}
-            </Link>
-          ))}
-
-          {/* Divider */}
-          <div className="my-3 h-px bg-white/10" />
-
-          {/* Mobile Auth Buttons */}
-          <div className="flex flex-col gap-3 pt-1">
-            <Link
-              href="/signin"
-              className="rounded-xl border border-violet-500/30 px-4 py-3 text-center text-sm font-semibold text-violet-400 transition hover:bg-violet-500/10"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Sign In
-            </Link>
-
-            <Link
-              href="/get-started"
-              className="rounded-xl bg-white px-4 py-3 text-center text-sm font-semibold text-black transition hover:bg-white/90"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </div>
+      )}
     </nav>
   );
 }
-// ---------------------End:59_6-(1) to () --------------------------------
+// ---------------------End:60_1-(1) to () --------------------------------

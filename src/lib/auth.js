@@ -57,37 +57,108 @@
 // });
   
 // // ---------------------End:56_6-(1) to () --------------------------------
-// -----------------------------Start: 57_1---------------------------------------
- import { betterAuth } from "better-auth";
+// // -----------------------------Start: 57_1---------------------------------------
+//  import { betterAuth } from "better-auth";
+// import { MongoClient } from "mongodb";
+// import { mongodbAdapter } from "better-auth/adapters/mongodb";
+
+
+// const client = new MongoClient(process.env.MONGO_DB_URI);
+
+// const db = client.db(process.env.AUTH_DB_NAME);
+
+// export const auth = betterAuth({
+    
+//     emailAndPassword: { 
+//     enabled: true, 
+//   }, 
+
+    
+//   database: mongodbAdapter(db, {
+//     // Optional: if you don't provide a client, database transactions won't be enabled.
+//     client
+//   }),
+//   // (1)st
+//   user: {
+//        additionalFields: {
+//           role: {
+//               default: "seeker",              
+//             } 
+//         }
+//     }
+//   // (1)en then (start: 57_2) go to signup page
+// });
+  
+// // ---------------------End:57_1-(1) to () --------------------------------
+// -----------------------------Start: 59_9---------------------------------------
+// import { betterAuth } from "better-auth";
+// import { MongoClient } from "mongodb";
+// import { mongodbAdapter } from "better-auth/adapters/mongodb";
+
+
+// const client = new MongoClient(process.env.MONGO_DB_URI);
+
+// const db = client.db(process.env.AUTH_DB_NAME);
+
+// export const auth = betterAuth({
+    
+//     emailAndPassword: { 
+//     enabled: true, 
+//   }, 
+
+    
+//   database: mongodbAdapter(db, {
+//     // Optional: if you don't provide a client, database transactions won't be enabled.
+//     client
+//   }),
+  
+//   user: {
+//        additionalFields: {
+//           role: {
+//               default: "seeker",              
+//             },
+//             // (1)st
+//             plan: {
+//               default: 'seeker_free'
+//             }
+//             // (1)en then go to signup/page.js
+
+//         }
+//     }
+  
+// });
+  
+// ---------------------End:59_9-(1) to () --------------------------------
+// -----------------------------Start: 61_8---------------------------------------
+import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-
+import { admin } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.MONGO_DB_URI);
-
 const db = client.db(process.env.AUTH_DB_NAME);
 
 export const auth = betterAuth({
-    
-    emailAndPassword: { 
-    enabled: true, 
-  }, 
-
-    
-  database: mongodbAdapter(db, {
-    // Optional: if you don't provide a client, database transactions won't be enabled.
-    client
-  }),
-  // (1)st
-  user: {
-       additionalFields: {
-          role: {
-              default: "seeker",              
-            } 
+    emailAndPassword: {
+        enabled: true,
+    },
+    database: mongodbAdapter(db, {
+        // Optional: if you don't provide a client, database transactions won't be enabled.
+        client
+    }),
+    user: {
+        additionalFields: {
+            role: {
+                default: "seeker"
+            },
+            plan: {
+                default: 'seeker_free'
+            }
         }
-    }
-  // (1)en then (start: 57_2) go to signup page
+    },
+    plugins: [
+        admin()
+    ]
 });
-  
-// ---------------------End:57_1-(1) to () --------------------------------
 
+// ---------------------End:61_8-(1) to () --------------------------------
